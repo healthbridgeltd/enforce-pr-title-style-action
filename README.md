@@ -40,14 +40,14 @@ A specific Project Key to always check for.
 
 ```
 - name: Enforce Jira Issue Key in Pull Request Title
-  uses: ryanvade/enforce-pr-title-style-action@v1
+  uses: healthbridgeltd/enforce-pr-title-style-action@v1
 ```
 
 ## Example Usage with a specific Project Key
 
 ```
 - name: Enforce Jira Issue Key in Pull Request Title
-  uses: ryanvade/enforce-pr-title-style-action@v1
+  uses: healthbridgeltd/enforce-pr-title-style-action@v1
   with:
     projectKey: AB
 ```
