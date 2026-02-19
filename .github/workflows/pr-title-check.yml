@@ -1,0 +1,15 @@
+name: Enforce PR Title Includes Jira Issue Key
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  check-title:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run PR title check
+        uses: ./
