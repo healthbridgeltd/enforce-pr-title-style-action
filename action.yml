@@ -5,5 +5,5 @@ inputs:
     description: 'A specific Jira Project Key that must be included.'
     required: false
 runs:
-  using: node12
+  using: node20
   main: dist/index.js

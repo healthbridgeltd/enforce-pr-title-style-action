@@ -1,49 +1,38 @@
-import * as core from "@actions/core";
-import * as github from "@actions/github";
-import { EventPayloads } from "@octokit/webhooks";
+import { info, setFailed } from "@actions/core";
+import { context } from "@actions/github";
 
-async function run() {
-    try {
-        core.debug("Starting PR Title check for Jira Issue Key");
-        const title = getPullRequestTitle();
-        const regex = getRegex();
+export const OUTCOMES = {
+  failedUnsupportedEventType:
+    "This action should only be run with Pull Request Events",
+  failedGuildTicket:
+    "PRs should not be linked to guild tickets. Please raise a squad ticket.",
+  failedNoJiraIssueId:
+    "Pull Request title does not include a valid JIRA Issue ID.",
+  passed: "Title Passed",
+} as const;
 
-        core.debug(title);
-        core.debug(regex.toString());
+export async function run() {
+  const pullRequest = context.payload.pull_request;
+  if (pullRequest == undefined || pullRequest.title == undefined) {
+    setFailed(OUTCOMES.failedUnsupportedEventType);
+    return;
+  }
 
-        if (!regex.test(title)) {
-            core.debug(`Regex ${regex} failed with title ${title}`);
-            core.info("Title Failed");
-            core.setFailed("PullRequest title does not start with a Jira Issue key.");
-            return;
-        }
-        core.info("Title Passed");
+  const title = pullRequest.title;
+  const isGuildTicket = /GUIL-/.test(title);
 
-    } catch (error) {
-        core.setFailed(error.message);
-    }
+  if (isGuildTicket) {
+    setFailed(OUTCOMES.failedGuildTicket);
+    return;
+  }
+
+  const jiraIssueIdRegex = /[A-Z][A-Z0-9]+-\d+/;
+  if (!jiraIssueIdRegex.test(title)) {
+    setFailed(OUTCOMES.failedNoJiraIssueId);
+    return;
+  }
+
+  info(OUTCOMES.passed);
 }
 
-export function getRegex() {
-    let regex = /(?<=^|[a-z]\-|[\s\p{Punct}&&[^\-]*])\W?([A-Z][A-Z0-9_]*-\d+)\W?(?![^\W_])(\s)+(.)+/;
-    const projectKey = core.getInput("projectKey", { required: false });
-    if (projectKey && projectKey !== "") {
-        core.debug(`Project Key ${projectKey}`);
-        if (!/(?<=^|[a-z]\-|[\s\p{Punct}&&[^\-]*])([A-Z][A-Z0-9_]*)/.test(projectKey)) {
-            throw new Error(`Project Key  "${projectKey}" is invalid`)
-        }
-        regex = new RegExp(`(^${projectKey}-){1}(\\d)+(\\s)+(.)+`);
-    }
-    return regex;
-}
-
-export function getPullRequestTitle() {
-    const pull_request = github.context.payload.pull_request;
-    core.debug(`Pull Request: ${JSON.stringify(github.context.payload.pull_request)}`);
-    if (pull_request == undefined || pull_request.title == undefined) {
-        throw new Error("This action should only be run with Pull Request Events");
-    }
-    return pull_request.title;
-}
-
-run()
+run();
