@@ -11,7 +11,7 @@ module.exports = {
   },
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
-    "^@actions/core$": "<rootDir>/__mocks__/@actions/core.ts",
-    "^@actions/github$": "<rootDir>/__mocks__/@actions/github.ts",
+    "^@actions/core$": "<rootDir>/fixtures/@actions/core.ts",
+    "^@actions/github$": "<rootDir>/fixtures/@actions/github.ts",
   },
 };
