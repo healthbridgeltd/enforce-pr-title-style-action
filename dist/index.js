@@ -4,7 +4,7 @@ export const OUTCOMES = {
     failedUnsupportedEventType: "This action should only be run with Pull Request Events",
     failedGuildTicket: "PRs should not be linked to guild tickets. Please raise a squad ticket.",
     failedNoJiraIssueId: "Pull Request title does not include a valid JIRA Issue ID.",
-    passed: "Title Passed",
+    passed: "Title passed.",
 };
 export async function run() {
     const pullRequest = context.payload.pull_request;

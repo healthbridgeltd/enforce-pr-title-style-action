@@ -8,7 +8,7 @@ export const OUTCOMES = {
     "PRs should not be linked to guild tickets. Please raise a squad ticket.",
   failedNoJiraIssueId:
     "Pull Request title does not include a valid JIRA Issue ID.",
-  passed: "Title Passed",
+  passed: "Title passed.",
 } as const;
 
 export async function run() {
