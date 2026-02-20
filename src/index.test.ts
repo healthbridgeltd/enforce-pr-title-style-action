@@ -46,6 +46,23 @@ describe("index", () => {
     expect(core.setFailed).not.toHaveBeenCalled();
   });
 
+  test("valid ticket in revert title", () => {
+    process.env["GITHUB_EVENT_PATH"] = join(
+      __dirname,
+      "..",
+      "fixtures",
+      "valid-context-revert.json",
+    );
+    context.payload = JSON.parse(
+      readFileSync(process.env.GITHUB_EVENT_PATH, { encoding: "utf8" }),
+    );
+
+    run();
+
+    expect(core.info).toHaveBeenCalledWith(OUTCOMES.passed);
+    expect(core.setFailed).not.toHaveBeenCalled();
+  });
+
   test("guild ticket in title", () => {
     process.env["GITHUB_EVENT_PATH"] = join(
       __dirname,

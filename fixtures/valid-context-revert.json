@@ -328,7 +328,7 @@
         "review_comments_url": "api.github.com/repos/healthbridge/enforce-pr-title-style-action/pulls/2/comments",
         "state": "open",
         "statuses_url": "api.github.com/repos/healthbridge/enforce-pr-title-style-action/statuses/3bad372df3d52f26b127001d6cc015bc7223d04f",
-        "title": "Test Title",
+        "title": "Revert [QUEST-1234] Test Title",
         "updated_at": "2020-12-11T17:06:31Z",
         "url": "api.github.com/repos/healthbridge/enforce-pr-title-style-action/pulls/2",
         "user": {
