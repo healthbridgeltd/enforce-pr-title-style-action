@@ -9,7 +9,7 @@
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
-    "package": "ncc build src/index.ts -o dist --source-map",
+    "package": "tsc && ncc build src/index.ts -o dist --source-map",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "author": "healthbridgeltd",
