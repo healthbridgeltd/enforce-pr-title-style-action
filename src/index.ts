@@ -20,7 +20,6 @@ export async function run() {
 
   const title = pullRequest.title;
   const isGuildTicket = /GUIL-/.test(title);
-
   if (isGuildTicket) {
     setFailed(OUTCOMES.failedGuildTicket);
     return;
