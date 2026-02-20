@@ -1,4 +1,4 @@
-name: Enforce PR Title Includes Jira Issue Key
+name: Enforce PR title includes Jira Issue Key
 
 on:
   pull_request:
